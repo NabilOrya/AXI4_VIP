@@ -101,6 +101,18 @@ package axi4_env_pkg;
   `include "env/axi4_scoreboard.sv"
   `include "env/axi4_env.sv"
 
-  // Tests
+  // Tests (§4.10 + Phase-1 smoke)
+  `include "tests/axi4_test_base.sv"
   `include "tests/axi4_base_test.sv"
+  `include "tests/test_reset.sv"
+  `include "tests/test_directed_regs.sv"
+  `include "tests/test_directed_burst_basic.sv"
+  `include "tests/test_negative_burst.sv"
+  `include "tests/test_addr_decode.sv"
+  `include "tests/test_fifo.sv"
+  `include "tests/test_irq.sv"
+  `include "tests/test_outstanding_stress.sv"
+  `include "tests/test_concurrent_rw.sv"
+  `include "tests/test_backpressure.sv"
+  `include "tests/test_random_regression.sv"
 endpackage

@@ -38,7 +38,7 @@ Phase-1 core pipe is largely built (agents, monitors, ref model, scoreboard, smo
 | Scoreboard §4.6 | 10% | 7% | In-order txn compare done; no cycle IRQ check |
 | Functional coverage §4.7 | 8% | 4% | 10 covergroups built; partial sampling |
 | SVA §4.9 | 5% | 2% | Partial (stability / no-X / reset) |
-| Test list §4.10 | 10% | 2% | Smoke only (`axi4_base_test`) |
+| Test list §4.10 | 10% | 100% | All 11 plan tests + `axi4_test_base` + smoke |
 | RAL §4.8 (Phase 3) | 8% | 0% | Not started |
 | Regression / reports / exit §4.11 | 7% | 0% | Not started |
 
@@ -105,8 +105,8 @@ Phase-1 core pipe is largely built (agents, monitors, ref model, scoreboard, smo
 - `seq_backpressure_sweep` — DUT delay only; no master-side ready throttle  
 - Several seqs lack strong data/level golden checks (rely on future SB + tests)  
 
-### Tests (§4.10) — missing
-`test_reset`, `test_directed_regs`, `test_directed_burst_basic`, `test_negative_burst`, `test_addr_decode`, `test_fifo`, `test_irq`, `test_outstanding_stress`, `test_concurrent_rw`, `test_backpressure`, `test_random_regression`
+### Tests (§4.10) — done
+`test_reset`, `test_directed_regs`, `test_directed_burst_basic`, `test_negative_burst`, `test_addr_decode`, `test_fifo`, `test_irq`, `test_outstanding_stress`, `test_concurrent_rw`, `test_backpressure`, `test_random_regression` (+ smoke `axi4_base_test`). Select with `+UVM_TESTNAME=<name>`.
 
 ### RAL (§4.8) — missing
 `axi4_reg_block`, `axi4_reg_adapter`, real `uvm_reg_bit_bash_seq` / `uvm_reg_hw_reset_seq` integration  

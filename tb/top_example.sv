@@ -124,7 +124,8 @@ module top_example;
   // UVM Configuration and Test Initiation
   initial begin
     uvm_config_db#(virtual axi4_if)::set(null, "*", "vif", intf);
-    run_test("axi4_base_test");
+    // Select via +UVM_TESTNAME=<test> (default axi4_base_test if unset)
+    run_test();
   end
 
 endmodule
