@@ -5,9 +5,10 @@ package axi4_env_pkg;
   import uvm_pkg::*;
 
   // Declare analysis-imp suffixes once for the whole package
-  // (scoreboard + coverage both use _write/_read)
   `uvm_analysis_imp_decl(_write)
   `uvm_analysis_imp_decl(_read)
+  `uvm_analysis_imp_decl(_exp_write)
+  `uvm_analysis_imp_decl(_exp_read)
 
   // Write Agent
   `include "agents/write_agent/axi4_write_txn.sv"

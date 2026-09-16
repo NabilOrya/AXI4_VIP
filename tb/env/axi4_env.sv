@@ -29,8 +29,19 @@ class axi4_env extends uvm_env;
     super.connect_phase(phase);
     `uvm_info("ENV", "connect_phase executed", UVM_LOW)
 
+    // Monitor -> ref first so expectations are queued before/with actuals
+    write_agent.monitor.item_collected_port.connect(ref_model.write_export);
+    read_agent.monitor.item_collected_port.connect(ref_model.read_export);
+
+    // Monitor -> scoreboard (actuals)
     write_agent.monitor.item_collected_port.connect(scoreboard.write_export);
     read_agent.monitor.item_collected_port.connect(scoreboard.read_export);
+
+    // Ref predictions -> scoreboard
+    ref_model.exp_write_port.connect(scoreboard.exp_write_export);
+    ref_model.exp_read_port.connect(scoreboard.exp_read_export);
+
+    // Coverage
     write_agent.monitor.item_collected_port.connect(coverage.write_export);
     read_agent.monitor.item_collected_port.connect(coverage.read_export);
 
