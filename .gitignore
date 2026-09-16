@@ -1,0 +1,32 @@
+# Cadence xrun / Xcelium
+sim/xcelium.d/
+sim/xrun.*
+sim/*.history
+sim/*.key
+sim/INCA_libs/
+sim/.simvision/
+sim/*.shm/
+sim/*.vcd
+sim/*.fsdb
+sim/*.trn
+sim/*.dsn
+
+# Vivado / XSim leftovers
+xsim.dir/
+xvlog.*
+xelab.*
+xsim.*
+*.pb
+*.wdb
+
+# Generic sim / editor junk
+*.log
+*.history
+*.key
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# Local extract helpers (not source)
+docs/*.extracted.txt
