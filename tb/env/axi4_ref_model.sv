@@ -151,11 +151,13 @@ class axi4_ref_model extends uvm_component;
 
   function bit [31:0] read_reg(bit [15:0] a);
     bit [4:0] lvl;
-    // At completed-txn boundaries busy bits are modeled as 0 (Phase-1 sequential).
+    // RTL STATUS busy bits: wr_busy=(aw_count!=0)||wr_active, rd_busy=(ar_count!=0)||rd_active.
+    // RDATA is formed while rd_active=1, so any STATUS read beat sees rd_busy=1.
+    // Phase-1 sequential drivers: wr_busy=0 when predicting a standalone STATUS read.
     lvl = fifo_level();
     case (a)
       A_CTRL:       return {29'h0, ctrl};
-      A_STATUS:     return {27'h0, irq_value(), fifo_full(), fifo_empty(), 1'b0, 1'b0};
+      A_STATUS:     return {27'h0, irq_value(), fifo_full(), fifo_empty(), 1'b1, 1'b0};
       A_INT_EN:     return {29'h0, int_en};
       A_INT_STATUS: return {29'h0, int_status};
       A_FIFO_DATA:  return fifo_empty() ? 32'h0 : fifo_q[0];

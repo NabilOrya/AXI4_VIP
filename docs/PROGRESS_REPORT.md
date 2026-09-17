@@ -3,14 +3,14 @@
 **Repository:** https://github.com/NabilOrya/AXI4_VIP  
 **Project:** UVM Verification of AXI4 Full Burst Memory and FIFO Peripheral (`axi4_peripheral`)  
 **Plan source:** `docs/AXI4_Verification_Plan.docx`  
-**Report date:** 2026-09-16  
-**Overall completion (vs full plan + submission):** **~55%**
+**Report date:** 2026-09-17  
+**Overall completion (vs full plan + submission):** **~60%**
 
 ---
 
 ## 1. One-line status
 
-Phase-1 core pipe is largely built (agents, monitors, ref model, scoreboard, smoke test). Phase-2 stimulus library exists but is not fully checked/executed via the plan’s test suite. Phase-3 RAL, regression, and sign-off artifacts are not started. Cadence `xrun` proof is still pending.
+Phase-1 core pipe is **Cadence-proven** (`axi4_base_test` PASS on Xcelium 24.09). All 50 sequences and all §4.10 tests are coded. Phase-2 suite has not yet been run/closed on Cadence; drivers still block true outstanding/backpressure stress. Phase-3 RAL, full regression, and sign-off artifacts are not started.
 
 ---
 
@@ -33,23 +33,23 @@ Phase-1 core pipe is largely built (agents, monitors, ref model, scoreboard, smo
 | Verification plan / docs | 5% | 5% | Complete |
 | DUT + IF + top + filelist | 5% | 5% | Complete |
 | Agents (txn / seqr / driver / monitor) | 15% | 12% | Drivers Phase-1 sequential; monitors complete |
-| Sequence library (50 seqs) | 15% | 11% | Files present; some scenarios incomplete |
+| Sequence library (50 seqs) | 15% | 11% | All files present; some scenarios incomplete |
 | Reference model §4.5 | 12% | 9% | Core predict + shadow state done |
 | Scoreboard §4.6 | 10% | 7% | In-order txn compare done; no cycle IRQ check |
 | Functional coverage §4.7 | 8% | 4% | 10 covergroups built; partial sampling |
 | SVA §4.9 | 5% | 2% | Partial (stability / no-X / reset) |
-| Test list §4.10 | 10% | 100% | All 11 plan tests + `axi4_test_base` + smoke |
+| Test list §4.10 | 10% | 8% | All 11 plan tests + smoke coded; only smoke Cadence-proven |
 | RAL §4.8 (Phase 3) | 8% | 0% | Not started |
-| Regression / reports / exit §4.11 | 7% | 0% | Not started |
+| Regression / reports / exit §4.11 | 7% | 1% | Smoke proven; no suite regression / closure reports |
 
-**Estimated total: ~55%.**
+**Estimated total: ~60%.**
 
 ### Phase view
 
 | Phase | Plan intent | Status |
 |-------|-------------|--------|
-| **Phase 1** | Core pipe: agents, monitors, ref, SB; simple directed prove-out | **~85–90%** coded; smoke test ready; **not yet proven on Cadence** |
-| **Phase 2** | Burst / addr / FIFO / IRQ / stress without RAL | **~45%** — sequences mostly written; full tests + stress gaps remain |
+| **Phase 1** | Core pipe: agents, monitors, ref, SB; simple directed prove-out | **~95%** — Cadence smoke **PASSED** 2026-09-17 |
+| **Phase 2** | Burst / addr / FIFO / IRQ / stress without RAL | **~50%** — sequences + §4.10 tests coded; Cadence suite not closed; stress gaps remain |
 | **Phase 3** | RAL + `uvm_reg_*` reuse | **0%** |
 | **Sign-off** | Clean regression, coverage goals, reports, Appendix A closed | **0%** |
 
@@ -80,11 +80,17 @@ Phase-1 core pipe is largely built (agents, monitors, ref model, scoreboard, smo
 - `axi4_vseq_base` for mixed R+W + `check_irq`  
 - Illegal / addr-decode / many IRQ seqs have directed checks  
 
-### Smoke test
-- `axi4_base_test` waits for reset, runs **`seq_reg_ctrl_rw`** (CTRL write `0x7` + readback), reports PASS/FAIL  
+### Tests (§4.10) — coded
+`test_reset`, `test_directed_regs`, `test_directed_burst_basic`, `test_negative_burst`, `test_addr_decode`, `test_fifo`, `test_irq`, `test_outstanding_stress`, `test_concurrent_rw`, `test_backpressure`, `test_random_regression` (+ smoke `axi4_base_test`). Select with `+UVM_TESTNAME=<name>`.
+
+### Cadence proof (Phase 1 smoke) — **PASSED**
+- Date: **2026-09-17**, tool: `xrun` 24.09-s008 (Xcelium)  
+- Command: `+UVM_TESTNAME=axi4_base_test` from `sim/`  
+- Result: compile/elab OK; `WR MATCH` / `RD MATCH` (CTRL `0x7`); `*** axi4_base_test PASSED ***` @ 175 ns; 0 UVM_ERROR / UVM_FATAL  
+- Compile noise only: UTF-8 em-dash `NONPRT` warnings in `axi4_vseq_base.sv` / `test_random_regression.sv` (non-blocking); unused `+incdir+../rtl`  
 
 ### Coverage / SVA (partial)
-- Friend contribution: 10 covergroups in `axi4_coverage.sv`; SVA module bound in top  
+- 10 covergroups in `axi4_coverage.sv`; SVA module bound in top  
 
 ---
 
@@ -103,10 +109,10 @@ Phase-1 core pipe is largely built (agents, monitors, ref model, scoreboard, smo
 - `seq_reset_midtxn` — does not drive `ARESETn`  
 - `seq_outstanding_depth_stress` — serial completes; cannot hit QDEPTH=4 stall with current driver  
 - `seq_backpressure_sweep` — DUT delay only; no master-side ready throttle  
-- Several seqs lack strong data/level golden checks (rely on future SB + tests)  
+- Several seqs lack strong data/level golden checks (rely on SB + dedicated tests)  
 
-### Tests (§4.10) — done
-`test_reset`, `test_directed_regs`, `test_directed_burst_basic`, `test_negative_burst`, `test_addr_decode`, `test_fifo`, `test_irq`, `test_outstanding_stress`, `test_concurrent_rw`, `test_backpressure`, `test_random_regression` (+ smoke `axi4_base_test`). Select with `+UVM_TESTNAME=<name>`.
+### Cadence execution beyond smoke
+- §4.10 tests are **coded** but **not yet proven/closed** on Cadence as a suite  
 
 ### RAL (§4.8) — missing
 `axi4_reg_block`, `axi4_reg_adapter`, real `uvm_reg_bit_bash_seq` / `uvm_reg_hw_reset_seq` integration  
@@ -118,7 +124,7 @@ Phase-1 core pipe is largely built (agents, monitors, ref model, scoreboard, smo
 `cg_ctrl`, `cg_irq`, `cg_fifo`, `cg_delay`, `cg_outstanding` not fully sampled yet  
 
 ### Sign-off / submission
-- No Cadence regression logs  
+- No Cadence suite regression logs / scripts  
 - No functional/code coverage closure report  
 - No final verification report / bug reports  
 - Appendix A mentor decisions not formally closed  
@@ -130,17 +136,17 @@ Phase-1 core pipe is largely built (agents, monitors, ref model, scoreboard, smo
 | Band | Features | Stimulus | Independent checking (ref/SB) |
 |------|----------|----------|-------------------------------|
 | Reset / queues | F1–F3 | Partial / weak for F2–F3 | Not ready |
-| Write/read protocol | F4–F9 | Mostly yes | Partial (resp/data via SB) |
-| Illegal burst | F10–F13 | Yes | Partial (directed + SB) |
-| Address decode | F14–F17 | Yes | Partial |
-| Registers / IRQ | F18–F25 | Yes | Partial |
-| FIFO | F26–F28 | Yes | Partial |
+| Write/read protocol | F4–F9 | Mostly yes | Proven on smoke path; broader coverage via SB |
+| Illegal burst | F10–F13 | Yes | Partial (directed + SB); Cadence suite TBD |
+| Address decode | F14–F17 | Yes | Partial; Cadence suite TBD |
+| Registers / IRQ | F18–F25 | Yes | CTRL path Cadence-proven; rest TBD |
+| FIFO | F26–F28 | Yes | Partial; Cadence suite TBD |
 | Delay / txn count | F29–F30 | Yes | Weak |
 | Concurrent / order | F31–F33 | Partial | Weak |
 | Mid-reset / precedence | F34–F35 | Weak / missing | Not ready |
 | Backpressure / max stress | F36–F38 | Partial | Weak |
 
-**Summary:** Almost all features have **named sequences**; few are **fully closed** by monitor→ref→SB + dedicated tests.
+**Summary:** Almost all features have **named sequences** and **named tests**. Phase-1 smoke is Cadence-closed. Few features are **fully closed** by monitor→ref→SB + Cadence-proven dedicated tests.
 
 ---
 
@@ -158,23 +164,26 @@ xrun -64bit -uvm -sv -access +rwc -timescale 1ns/1ps \
   +UVM_VERBOSITY=UVM_MEDIUM
 ```
 
-**Expect (when healthy):**
+**Proven healthy result (2026-09-17):**
 - UVM topology print  
 - Driver / monitor activity on CTRL write+read  
-- Scoreboard `WR MATCH` / `RD MATCH`  
-- `*** PHASE-1 SMOKE PASSED ***`
+- Scoreboard `WR MATCH` / `RD MATCH` (`RDATA=0x00000007`)  
+- `*** axi4_base_test PASSED ***`  
+- 0 UVM_ERROR / UVM_FATAL  
+
+Other tests: same command with `+UVM_TESTNAME=<test_name>` (see §4).
 
 ---
 
 ## 8. Recommended next steps (priority order)
 
-1. **Prove Phase 1 on Cadence** — run smoke; fix any compile/runtime issues  
-2. **Add plan tests** — at least reset, regs, negative burst, addr, fifo, irq  
-3. **Upgrade drivers** — outstanding AW/W + random ready (unlock F2/F3/F37)  
-4. **Harden weak sequences** — mid-txn reset, outstanding stress, FIFO data checks  
-5. **Finish coverage sampling + remaining SVA**  
-6. **Phase 3 RAL**  
-7. **Regression + coverage closure + final report**  
+1. **Run Phase-2 Cadence suite** — `test_reset`, `test_directed_regs`, `test_directed_burst_basic`, `test_negative_burst`, `test_addr_decode`, `test_fifo`, `test_irq` (then stress tests)  
+2. **Upgrade drivers** — outstanding AW/W + random ready (unlock F2/F3/F37)  
+3. **Harden weak sequences** — mid-txn reset, outstanding stress, FIFO data checks  
+4. **Finish coverage sampling + remaining SVA**  
+5. **Phase 3 RAL**  
+6. **Regression + coverage closure + final report**  
+7. *(Optional)* Replace UTF-8 em-dashes in TB strings to clear `NONPRT` warnings  
 
 ---
 
@@ -182,7 +191,7 @@ xrun -64bit -uvm -sv -access +rwc -timescale 1ns/1ps \
 
 ```
 AXI4_VIP/
-  docs/          Verification plan + project brief
+  docs/          Verification plan + project brief + this report
   rtl/           DUT
   sim/filelist.f xrun file list (run from sim/)
   tb/
@@ -190,15 +199,15 @@ AXI4_VIP/
     agents/      write + read VIP
     env/         ref_model, scoreboard, coverage, env
     sequences/   50 plan sequences + bases
-    tests/       axi4_base_test (smoke)
+    tests/       axi4_test_base, axi4_base_test (smoke), 11 §4.10 tests
 ```
 
 ---
 
 ## 10. Honest summary for a friend / future self
 
-> We have a real UVM AXI4 VIP structure aligned to the verification plan: DUT, interface, two agents with working drivers/monitors, full sequence catalog, a transaction-level reference model and comparing scoreboard, partial coverage/SVA, and a Phase-1 smoke test. Roughly **half** the full project (including RAL, full test suite, regression, and sign-off) remains. Next critical milestone: **pass smoke on Cadence `xrun`**, then expand the §4.10 test list.
+> We have a real UVM AXI4 VIP aligned to the verification plan: DUT, interface, two agents with working drivers/monitors, full sequence catalog, all §4.10 tests, a transaction-level reference model and comparing scoreboard, and partial coverage/SVA. **Phase-1 smoke passed on Cadence `xrun` (2026-09-17).** Roughly **40%** of the full project remains: Cadence Phase-2 suite closure, driver upgrades for outstanding/backpressure, coverage/SVA finish, RAL, regression, and sign-off. Next critical milestone: **run and close the §4.10 directed tests on Cadence**.
 
 ---
 
-*Generated for handoff / status sharing. Update this file when Phase 1 is Cadence-proven or when Phase 2/3 milestones land.*
+*Updated 2026-09-17 after Cadence Phase-1 smoke PASS. Update again when Phase-2 suite is Cadence-closed or Phase 3/RAL starts.*
