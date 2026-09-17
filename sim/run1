@@ -1,0 +1,6 @@
+for t in test_irq test_directed_regs test_directed_burst_basic test_fifo test_reset; do
+  xrun -64bit -uvm -sv -access +rwc -timescale 1ns/1ps \
+    -f filelist.f -top top_example \
+    +UVM_TESTNAME=$t +UVM_VERBOSITY=UVM_MEDIUM \
+    -l logs/${t}.log
+done

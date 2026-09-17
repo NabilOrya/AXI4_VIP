@@ -20,7 +20,7 @@ xsim.*
 *.wdb
 
 # Generic sim / editor junk
-*.log
+# *.log
 *.history
 *.key
 *.swp

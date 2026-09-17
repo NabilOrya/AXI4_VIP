@@ -1,0 +1,234 @@
+xrun(64): 24.09-s008: (c) Copyright 1995-2025 Cadence Design Systems, Inc.
+TOOL:	xrun(64)	24.09-s008: Started on Sep 17, 2026 at 17:32:02 PKT
+xrun
+	-64bit
+	-uvm
+	-sv
+	-access +rwc
+	-timescale 1ns/1ps
+	-f filelist.f
+		+incdir+../tb
+		+incdir+../rtl
+		../rtl/axi_fifo.sv
+		../rtl/axi4_peripheral.sv
+		../tb/axi4_if.sv
+		../tb/axi4_sva.sv
+		../tb/axi4_env_pkg.sv
+		../tb/top_example.sv
+	-top top_example
+	+UVM_TESTNAME=test_reset
+	+UVM_VERBOSITY=UVM_MEDIUM
+	-l logs/test_reset.log
+
+   User defined plus("+") options:
+	+UVM_VERBOSITY=UVM_MEDIUM
+
+Loading snapshot worklib.top_example:sv .................... Done
+SVSEED default: 1
+xcelium> source /opt/cadencetools/XCELIUM2409/tools/xcelium/files/xmsimrc
+xcelium> source /opt/cadencetools/XCELIUM2409/tools/methodology/UVM/CDNS-1.1d/additions/sv/files/tcl/uvm_sim.tcl
+xcelium> run
+----------------------------------------------------------------
+CDNS-UVM-1.1d (24.09-s008)
+(C) 2007-2013 Mentor Graphics Corporation
+(C) 2007-2013 Cadence Design Systems, Inc.
+(C) 2006-2013 Synopsys, Inc.
+(C) 2011-2013 Cypress Semiconductor Corp.
+----------------------------------------------------------------
+
+  ***********       IMPORTANT RELEASE NOTES         ************
+
+  You are using a version of the UVM library that has been compiled
+  with `UVM_NO_DEPRECATED undefined.
+  See http://www.eda.org/svdb/view.php?id=3313 for more details.
+
+  You are using a version of the UVM library that has been compiled
+  with `UVM_OBJECT_MUST_HAVE_CONSTRUCTOR undefined.
+  See http://www.eda.org/svdb/view.php?id=3770 for more details.
+
+      (Specify +UVM_NO_RELNOTES to turn off this notice)
+
+UVM_INFO @ 0: reporter [RNTST] Running test test_reset...
+UVM_INFO ../tb/env/axi4_env.sv(19) @ 0: uvm_test_top.env [ENV] build_phase executed
+UVM_INFO ../tb/env/axi4_coverage.sv(232) @ 0: uvm_test_top.env.coverage [COVERAGE] build_phase executed
+UVM_INFO ../tb/agents/read_agent/axi4_read_agent.sv(17) @ 0: uvm_test_top.env.read_agent [READ_AGT] build_phase executed
+UVM_INFO ../tb/env/axi4_ref_model.sv(58) @ 0: uvm_test_top.env.ref_model [REF_MODEL] build_phase: shadow state reset
+UVM_INFO ../tb/env/axi4_scoreboard.sv(38) @ 0: uvm_test_top.env.scoreboard [SCOREBOARD] build_phase executed
+UVM_INFO ../tb/agents/write_agent/axi4_write_agent.sv(17) @ 0: uvm_test_top.env.write_agent [WRITE_AGT] build_phase executed
+UVM_INFO ../tb/agents/read_agent/axi4_read_agent.sv(28) @ 0: uvm_test_top.env.read_agent [READ_AGT] connect_phase executed
+UVM_INFO ../tb/agents/write_agent/axi4_write_agent.sv(28) @ 0: uvm_test_top.env.write_agent [WRITE_AGT] connect_phase executed
+UVM_INFO ../tb/env/axi4_env.sv(30) @ 0: uvm_test_top.env [ENV] connect_phase executed
+UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
+--------------------------------------------------------------------
+Name                         Type                        Size  Value
+--------------------------------------------------------------------
+uvm_test_top                 test_reset                  -     @2624
+  env                        axi4_env                    -     @2682
+    coverage                 axi4_coverage               -     @3182
+      read_export            uvm_analysis_imp_read       -     @3328
+      write_export           uvm_analysis_imp_write      -     @3280
+    read_agent               axi4_read_agent             -     @2745
+      driver                 axi4_read_driver            -     @3407
+        rsp_port             uvm_analysis_port           -     @3555
+        seq_item_port        uvm_seq_item_pull_port      -     @3506
+      monitor                axi4_read_monitor           -     @3375
+        item_collected_port  uvm_analysis_port           -     @3427
+      sequencer              uvm_sequencer               -     @3535
+        rsp_export           uvm_analysis_export         -     @3644
+        seq_item_export      uvm_seq_item_pull_imp       -     @4192
+        arbitration_queue    array                       0     -    
+        lock_queue           array                       0     -    
+        num_last_reqs        integral                    32    'd1  
+        num_last_rsps        integral                    32    'd1  
+    ref_model                axi4_ref_model              -     @2775
+      exp_read_port          uvm_analysis_port           -     @2974
+      exp_write_port         uvm_analysis_port           -     @2925
+      read_export            uvm_analysis_imp_read       -     @2876
+      write_export           uvm_analysis_imp_write      -     @2825
+    scoreboard               axi4_scoreboard             -     @2954
+      exp_read_export        uvm_analysis_imp_exp_read   -     @3202
+      exp_write_export       uvm_analysis_imp_exp_write  -     @3153
+      read_export            uvm_analysis_imp_read       -     @3104
+      write_export           uvm_analysis_imp_write      -     @3056
+    write_agent              axi4_write_agent            -     @2657
+      driver                 axi4_write_driver           -     @4343
+        rsp_port             uvm_analysis_port           -     @4438
+        seq_item_port        uvm_seq_item_pull_port      -     @4390
+      monitor                axi4_write_monitor          -     @4263
+        item_collected_port  uvm_analysis_port           -     @4313
+      sequencer              uvm_sequencer               -     @4468
+        rsp_export           uvm_analysis_export         -     @4523
+        seq_item_export      uvm_seq_item_pull_imp       -     @5063
+        arbitration_queue    array                       0     -    
+        lock_queue           array                       0     -    
+        num_last_reqs        integral                    32    'd1  
+        num_last_rsps        integral                    32    'd1  
+--------------------------------------------------------------------
+
+UVM_INFO ../tb/env/axi4_scoreboard.sv(50) @ 0: uvm_test_top.env.scoreboard [SCOREBOARD] ARESETn asserted  compare queues flushed
+UVM_INFO ../tb/env/axi4_ref_model.sv(70) @ 0: uvm_test_top.env.ref_model [REF_MODEL] ARESETn asserted  shadow state cleared
+UVM_INFO ../tb/tests/test_reset.sv(20) @ 35000: uvm_test_top [test_reset] === test_reset: seqs 1-3 ===
+UVM_INFO ../tb/sequences/seq_reset_basic.sv(19) @ 35000: reporter@@s1 [SEQ_RESET_BASIC] Executing Sequence #1: Basic Reset State Verification
+UVM_INFO ../tb/sequences/seq_reset_basic.sv(44) @ 156000: reporter@@s1 [SEQ_RESET_BASIC] Sequence #1 completed: post-reset idle checks done
+UVM_INFO ../tb/sequences/seq_reset_readback_zero.sv(35) @ 205000: uvm_test_top.env.read_agent.sequencer@@s2 [SEQ_RESET_READBACK_ZERO] Executing Sequence #2: Reset Readback (ref/SB expected values)
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(39) @ 215000: uvm_test_top.env.read_agent.driver [READ_DRV] Driving read: ID=1 Addr=0x101c Len=0 Size=2 Burst=1
+UVM_INFO ../tb/agents/read_agent/axi4_read_monitor.sv(128) @ 245000: uvm_test_top.env.read_agent.monitor [READ_MON] Read txn complete: ID=1 Addr=0x101c Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/env/axi4_scoreboard.sv(199) @ 245000: uvm_test_top.env.scoreboard [SCOREBOARD] RD MATCH ID=1 Addr=0x101c RESP=0 Data0=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(151) @ 245000: uvm_test_top.env.read_agent.driver [READ_DRV] Read complete: ID=1 Addr=0x101c Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(39) @ 255000: uvm_test_top.env.read_agent.driver [READ_DRV] Driving read: ID=1 Addr=0x0 Len=0 Size=2 Burst=1
+UVM_INFO ../tb/agents/read_agent/axi4_read_monitor.sv(128) @ 285000: uvm_test_top.env.read_agent.monitor [READ_MON] Read txn complete: ID=1 Addr=0x0 Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/env/axi4_scoreboard.sv(199) @ 285000: uvm_test_top.env.scoreboard [SCOREBOARD] RD MATCH ID=1 Addr=0x0 RESP=0 Data0=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(151) @ 285000: uvm_test_top.env.read_agent.driver [READ_DRV] Read complete: ID=1 Addr=0x0 Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(39) @ 295000: uvm_test_top.env.read_agent.driver [READ_DRV] Driving read: ID=1 Addr=0x800 Len=0 Size=2 Burst=1
+UVM_INFO ../tb/agents/read_agent/axi4_read_monitor.sv(128) @ 325000: uvm_test_top.env.read_agent.monitor [READ_MON] Read txn complete: ID=1 Addr=0x800 Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/env/axi4_scoreboard.sv(199) @ 325000: uvm_test_top.env.scoreboard [SCOREBOARD] RD MATCH ID=1 Addr=0x800 RESP=0 Data0=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(151) @ 325000: uvm_test_top.env.read_agent.driver [READ_DRV] Read complete: ID=1 Addr=0x800 Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(39) @ 335000: uvm_test_top.env.read_agent.driver [READ_DRV] Driving read: ID=1 Addr=0xffc Len=0 Size=2 Burst=1
+UVM_INFO ../tb/agents/read_agent/axi4_read_monitor.sv(128) @ 365000: uvm_test_top.env.read_agent.monitor [READ_MON] Read txn complete: ID=1 Addr=0xffc Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/env/axi4_scoreboard.sv(199) @ 365000: uvm_test_top.env.scoreboard [SCOREBOARD] RD MATCH ID=1 Addr=0xffc RESP=0 Data0=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(151) @ 365000: uvm_test_top.env.read_agent.driver [READ_DRV] Read complete: ID=1 Addr=0xffc Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(39) @ 375000: uvm_test_top.env.read_agent.driver [READ_DRV] Driving read: ID=1 Addr=0x1000 Len=0 Size=2 Burst=1
+UVM_INFO ../tb/agents/read_agent/axi4_read_monitor.sv(128) @ 405000: uvm_test_top.env.read_agent.monitor [READ_MON] Read txn complete: ID=1 Addr=0x1000 Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/env/axi4_scoreboard.sv(199) @ 405000: uvm_test_top.env.scoreboard [SCOREBOARD] RD MATCH ID=1 Addr=0x1000 RESP=0 Data0=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(151) @ 405000: uvm_test_top.env.read_agent.driver [READ_DRV] Read complete: ID=1 Addr=0x1000 Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(39) @ 415000: uvm_test_top.env.read_agent.driver [READ_DRV] Driving read: ID=1 Addr=0x1004 Len=0 Size=2 Burst=1
+UVM_INFO ../tb/agents/read_agent/axi4_read_monitor.sv(128) @ 445000: uvm_test_top.env.read_agent.monitor [READ_MON] Read txn complete: ID=1 Addr=0x1004 Beats=1 FinalRESP=0 RDATA[0]=0x00000006
+UVM_INFO ../tb/env/axi4_scoreboard.sv(199) @ 445000: uvm_test_top.env.scoreboard [SCOREBOARD] RD MATCH ID=1 Addr=0x1004 RESP=0 Data0=0x00000006
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(151) @ 445000: uvm_test_top.env.read_agent.driver [READ_DRV] Read complete: ID=1 Addr=0x1004 Beats=1 FinalRESP=0 RDATA[0]=0x00000006
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(39) @ 455000: uvm_test_top.env.read_agent.driver [READ_DRV] Driving read: ID=1 Addr=0x1008 Len=0 Size=2 Burst=1
+UVM_INFO ../tb/agents/read_agent/axi4_read_monitor.sv(128) @ 485000: uvm_test_top.env.read_agent.monitor [READ_MON] Read txn complete: ID=1 Addr=0x1008 Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/env/axi4_scoreboard.sv(199) @ 485000: uvm_test_top.env.scoreboard [SCOREBOARD] RD MATCH ID=1 Addr=0x1008 RESP=0 Data0=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(151) @ 485000: uvm_test_top.env.read_agent.driver [READ_DRV] Read complete: ID=1 Addr=0x1008 Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(39) @ 495000: uvm_test_top.env.read_agent.driver [READ_DRV] Driving read: ID=1 Addr=0x100c Len=0 Size=2 Burst=1
+UVM_INFO ../tb/agents/read_agent/axi4_read_monitor.sv(128) @ 525000: uvm_test_top.env.read_agent.monitor [READ_MON] Read txn complete: ID=1 Addr=0x100c Beats=1 FinalRESP=0 RDATA[0]=0x00000002
+UVM_INFO ../tb/env/axi4_scoreboard.sv(199) @ 525000: uvm_test_top.env.scoreboard [SCOREBOARD] RD MATCH ID=1 Addr=0x100c RESP=0 Data0=0x00000002
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(151) @ 525000: uvm_test_top.env.read_agent.driver [READ_DRV] Read complete: ID=1 Addr=0x100c Beats=1 FinalRESP=0 RDATA[0]=0x00000002
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(39) @ 535000: uvm_test_top.env.read_agent.driver [READ_DRV] Driving read: ID=1 Addr=0x1014 Len=0 Size=2 Burst=1
+UVM_INFO ../tb/agents/read_agent/axi4_read_monitor.sv(128) @ 565000: uvm_test_top.env.read_agent.monitor [READ_MON] Read txn complete: ID=1 Addr=0x1014 Beats=1 FinalRESP=0 RDATA[0]=0x00000001
+UVM_INFO ../tb/env/axi4_scoreboard.sv(199) @ 565000: uvm_test_top.env.scoreboard [SCOREBOARD] RD MATCH ID=1 Addr=0x1014 RESP=0 Data0=0x00000001
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(151) @ 565000: uvm_test_top.env.read_agent.driver [READ_DRV] Read complete: ID=1 Addr=0x1014 Beats=1 FinalRESP=0 RDATA[0]=0x00000001
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(39) @ 575000: uvm_test_top.env.read_agent.driver [READ_DRV] Driving read: ID=1 Addr=0x1018 Len=0 Size=2 Burst=1
+UVM_INFO ../tb/agents/read_agent/axi4_read_monitor.sv(128) @ 605000: uvm_test_top.env.read_agent.monitor [READ_MON] Read txn complete: ID=1 Addr=0x1018 Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/env/axi4_scoreboard.sv(199) @ 605000: uvm_test_top.env.scoreboard [SCOREBOARD] RD MATCH ID=1 Addr=0x1018 RESP=0 Data0=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(151) @ 605000: uvm_test_top.env.read_agent.driver [READ_DRV] Read complete: ID=1 Addr=0x1018 Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/sequences/seq_reset_readback_zero.sv(51) @ 605000: uvm_test_top.env.read_agent.sequencer@@s2 [SEQ_RESET_READBACK_ZERO] Sequence #2 completed
+UVM_INFO ../tb/sequences/seq_reset_midtxn.sv(31) @ 655000: reporter@@s3 [SEQ_RESET_MIDTXN] Executing Sequence #3: Mid-Transaction Reset Abort
+UVM_INFO ../tb/agents/write_agent/axi4_write_driver.sv(39) @ 665000: uvm_test_top.env.write_agent.driver [WRITE_DRV] Driving write: ID=3 Addr=0x10 Len=0 Size=2 Burst=1
+UVM_INFO ../tb/agents/write_agent/axi4_write_monitor.sv(137) @ 705000: uvm_test_top.env.write_agent.monitor [WRITE_MON] Write txn complete: ID=3 Addr=0x10 Beats=1 BRESP=0
+UVM_INFO ../tb/env/axi4_scoreboard.sv(135) @ 705000: uvm_test_top.env.scoreboard [SCOREBOARD] WR MATCH ID=3 Addr=0x10 BRESP=0
+UVM_INFO ../tb/agents/write_agent/axi4_write_driver.sv(158) @ 705000: uvm_test_top.env.write_agent.driver [WRITE_DRV] Write complete: ID=3 Addr=0x10 BRESP=0
+UVM_INFO ../tb/agents/write_agent/axi4_write_driver.sv(39) @ 715000: uvm_test_top.env.write_agent.driver [WRITE_DRV] Driving write: ID=3 Addr=0x1000 Len=0 Size=2 Burst=1
+UVM_INFO ../tb/agents/write_agent/axi4_write_monitor.sv(137) @ 755000: uvm_test_top.env.write_agent.monitor [WRITE_MON] Write txn complete: ID=3 Addr=0x1000 Beats=1 BRESP=0
+UVM_INFO ../tb/env/axi4_scoreboard.sv(135) @ 755000: uvm_test_top.env.scoreboard [SCOREBOARD] WR MATCH ID=3 Addr=0x1000 BRESP=0
+UVM_INFO ../tb/agents/write_agent/axi4_write_driver.sv(158) @ 755000: uvm_test_top.env.write_agent.driver [WRITE_DRV] Write complete: ID=3 Addr=0x1000 BRESP=0
+UVM_INFO ../tb/agents/write_agent/axi4_write_driver.sv(39) @ 765000: uvm_test_top.env.write_agent.driver [WRITE_DRV] Driving write: ID=2 Addr=0x20 Len=15 Size=2 Burst=1
+UVM_INFO ../tb/sequences/seq_reset_midtxn.sv(94) @ 795000: reporter@@s3 [SEQ_RESET_MIDTXN] Asserting ARESETn mid-transaction
+UVM_INFO ../tb/env/axi4_scoreboard.sv(50) @ 795000: uvm_test_top.env.scoreboard [SCOREBOARD] ARESETn asserted  compare queues flushed
+UVM_INFO ../tb/env/axi4_ref_model.sv(70) @ 795000: uvm_test_top.env.ref_model [REF_MODEL] ARESETn asserted  shadow state cleared
+UVM_INFO ../tb/sequences/seq_reset_midtxn.sv(104) @ 845000: reporter@@s3 [SEQ_RESET_MIDTXN] Releasing ARESETn
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(39) @ 885000: uvm_test_top.env.read_agent.driver [READ_DRV] Driving read: ID=4 Addr=0x101c Len=0 Size=2 Burst=1
+UVM_INFO ../tb/agents/read_agent/axi4_read_monitor.sv(128) @ 915000: uvm_test_top.env.read_agent.monitor [READ_MON] Read txn complete: ID=4 Addr=0x101c Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/env/axi4_scoreboard.sv(199) @ 915000: uvm_test_top.env.scoreboard [SCOREBOARD] RD MATCH ID=4 Addr=0x101c RESP=0 Data0=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(151) @ 915000: uvm_test_top.env.read_agent.driver [READ_DRV] Read complete: ID=4 Addr=0x101c Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(39) @ 925000: uvm_test_top.env.read_agent.driver [READ_DRV] Driving read: ID=4 Addr=0x10 Len=0 Size=2 Burst=1
+UVM_INFO ../tb/agents/read_agent/axi4_read_monitor.sv(128) @ 955000: uvm_test_top.env.read_agent.monitor [READ_MON] Read txn complete: ID=4 Addr=0x10 Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/env/axi4_scoreboard.sv(199) @ 955000: uvm_test_top.env.scoreboard [SCOREBOARD] RD MATCH ID=4 Addr=0x10 RESP=0 Data0=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(151) @ 955000: uvm_test_top.env.read_agent.driver [READ_DRV] Read complete: ID=4 Addr=0x10 Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(39) @ 965000: uvm_test_top.env.read_agent.driver [READ_DRV] Driving read: ID=4 Addr=0x1000 Len=0 Size=2 Burst=1
+UVM_INFO ../tb/agents/read_agent/axi4_read_monitor.sv(128) @ 995000: uvm_test_top.env.read_agent.monitor [READ_MON] Read txn complete: ID=4 Addr=0x1000 Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/env/axi4_scoreboard.sv(199) @ 995000: uvm_test_top.env.scoreboard [SCOREBOARD] RD MATCH ID=4 Addr=0x1000 RESP=0 Data0=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(151) @ 995000: uvm_test_top.env.read_agent.driver [READ_DRV] Read complete: ID=4 Addr=0x1000 Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(39) @ 1005000: uvm_test_top.env.read_agent.driver [READ_DRV] Driving read: ID=4 Addr=0x1008 Len=0 Size=2 Burst=1
+UVM_INFO ../tb/agents/read_agent/axi4_read_monitor.sv(128) @ 1035000: uvm_test_top.env.read_agent.monitor [READ_MON] Read txn complete: ID=4 Addr=0x1008 Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/env/axi4_scoreboard.sv(199) @ 1035000: uvm_test_top.env.scoreboard [SCOREBOARD] RD MATCH ID=4 Addr=0x1008 RESP=0 Data0=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(151) @ 1035000: uvm_test_top.env.read_agent.driver [READ_DRV] Read complete: ID=4 Addr=0x1008 Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(39) @ 1045000: uvm_test_top.env.read_agent.driver [READ_DRV] Driving read: ID=4 Addr=0x1018 Len=0 Size=2 Burst=1
+UVM_INFO ../tb/agents/read_agent/axi4_read_monitor.sv(128) @ 1075000: uvm_test_top.env.read_agent.monitor [READ_MON] Read txn complete: ID=4 Addr=0x1018 Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/env/axi4_scoreboard.sv(199) @ 1075000: uvm_test_top.env.scoreboard [SCOREBOARD] RD MATCH ID=4 Addr=0x1018 RESP=0 Data0=0x00000000
+UVM_INFO ../tb/agents/read_agent/axi4_read_driver.sv(151) @ 1075000: uvm_test_top.env.read_agent.driver [READ_DRV] Read complete: ID=4 Addr=0x1018 Beats=1 FinalRESP=0 RDATA[0]=0x00000000
+UVM_INFO ../tb/sequences/axi4_vseq_base.sv(70) @ 1085000: reporter@@s3 [seq_reset_midtxn] IRQ check passed (post mid-txn reset): IRQ=0
+UVM_INFO ../tb/sequences/seq_reset_midtxn.sv(135) @ 1085000: reporter@@s3 [SEQ_RESET_MIDTXN] Sequence #3 completed
+UVM_INFO /opt/cadencetools/XCELIUM2409/tools/methodology/UVM/CDNS-1.1d/sv/src/base/uvm_objection.svh(1268) @ 1135000: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+UVM_INFO ../tb/env/axi4_scoreboard.sv(221) @ 1135000: uvm_test_top.env.scoreboard [SCOREBOARD] Results: WR pass=2 fail=0 | RD pass=15 fail=0 | IRQ pass=17 fail=0
+UVM_INFO ../tb/tests/axi4_test_base.sv(81) @ 1135000: uvm_test_top [test_reset] *** test_reset PASSED ***
+
+--- UVM Report catcher Summary ---
+
+
+Number of demoted UVM_FATAL reports  :    0
+Number of demoted UVM_ERROR reports  :    0
+Number of demoted UVM_WARNING reports:    0
+Number of caught UVM_FATAL reports   :    0
+Number of caught UVM_ERROR reports   :    0
+Number of caught UVM_WARNING reports :    0
+
+--- UVM Report Summary ---
+
+** Report counts by severity
+UVM_INFO :   97
+UVM_WARNING :    0
+UVM_ERROR :    0
+UVM_FATAL :    0
+** Report counts by id
+[COVERAGE]     1
+[ENV]     2
+[READ_AGT]     2
+[READ_DRV]    30
+[READ_MON]    15
+[REF_MODEL]     3
+[RNTST]     1
+[SCOREBOARD]    21
+[SEQ_RESET_BASIC]     2
+[SEQ_RESET_MIDTXN]     4
+[SEQ_RESET_READBACK_ZERO]     2
+[TEST_DONE]     1
+[UVMTOP]     1
+[WRITE_AGT]     2
+[WRITE_DRV]     5
+[WRITE_MON]     2
+[seq_reset_midtxn]     1
+[test_reset]     2
+Simulation complete via $finish(1) at time 1135 NS + 45
+/opt/cadencetools/XCELIUM2409/tools/methodology/UVM/CDNS-1.1d/sv/src/base/uvm_root.svh:457     $finish;
+xcelium> exit
+TOOL:	xrun(64)	24.09-s008: Exiting on Sep 17, 2026 at 17:32:02 PKT  (total: 00:00:00)
