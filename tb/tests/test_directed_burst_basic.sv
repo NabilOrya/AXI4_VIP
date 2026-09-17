@@ -39,7 +39,7 @@ class test_directed_burst_basic extends axi4_test_base;
       seq_single_beat_read s; s = seq_single_beat_read::type_id::create("s"); run_rd(s); settle();
     end
     begin
-      seq_wstrb_sweep_write s; s = seq_wstrb_sweep_write::type_id::create("s"); run_wr(s); settle();
+      seq_wstrb_sweep_write s; s = seq_wstrb_sweep_write::type_id::create("s"); run_vseq(s); settle();
     end
 
     phase.drop_objection(this);

@@ -42,7 +42,8 @@ class test_directed_regs extends axi4_test_base;
       seq_reg_bit_bash_all s; s = seq_reg_bit_bash_all::type_id::create("s"); run_vseq(s); settle();
     end
     begin
-      seq_reg_hw_reset_check s; s = seq_reg_hw_reset_check::type_id::create("s"); run_rd(s); settle();
+      // vseq: pulses ARESETn then readbacks (ref/SB check reset defaults)
+      seq_reg_hw_reset_check s; s = seq_reg_hw_reset_check::type_id::create("s"); run_vseq(s); settle();
     end
 
     phase.drop_objection(this);

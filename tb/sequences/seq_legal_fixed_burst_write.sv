@@ -23,6 +23,8 @@ class seq_legal_fixed_burst_write extends uvm_sequence #(axi4_write_txn);
     wr_seq.seq_len  = 8'h03; // 4 beats
     wr_seq.seq_size = 3'b010;
     wr_seq.seq_burst= 2'b00; // FIXED burst
+    wr_seq.check_resp  = 1;
+    wr_seq.expect_resp = 2'b00;
     wr_seq.start(m_sequencer);
 
     `uvm_info("SEQ_LEGAL_FIXED_WRITE", "Sequence #24 completed", UVM_LOW)

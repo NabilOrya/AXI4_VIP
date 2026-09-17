@@ -18,15 +18,16 @@ class test_fifo extends axi4_test_base;
       seq_fifo_push_pop_basic s; s = seq_fifo_push_pop_basic::type_id::create("s"); run_vseq(s); settle();
     end
     begin
-      seq_fifo_overflow_push_while_full s;
-      s = seq_fifo_overflow_push_while_full::type_id::create("s");
-      run_wr(s);
+      // Self-clears to empty before pop (must not run only after overflow)
+      seq_fifo_underflow_pop_while_empty s;
+      s = seq_fifo_underflow_pop_while_empty::type_id::create("s");
+      run_vseq(s);
       settle();
     end
     begin
-      seq_fifo_underflow_pop_while_empty s;
-      s = seq_fifo_underflow_pop_while_empty::type_id::create("s");
-      run_rd(s);
+      seq_fifo_overflow_push_while_full s;
+      s = seq_fifo_overflow_push_while_full::type_id::create("s");
+      run_vseq(s);
       settle();
     end
     begin

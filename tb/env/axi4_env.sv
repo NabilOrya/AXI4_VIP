@@ -40,6 +40,7 @@ class axi4_env extends uvm_env;
     // Ref predictions -> scoreboard
     ref_model.exp_write_port.connect(scoreboard.exp_write_export);
     ref_model.exp_read_port.connect(scoreboard.exp_read_export);
+    scoreboard.ref_model = ref_model;
 
     // Coverage
     write_agent.monitor.item_collected_port.connect(coverage.write_export);

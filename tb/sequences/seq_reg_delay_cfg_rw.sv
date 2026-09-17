@@ -41,6 +41,8 @@ class seq_reg_delay_cfg_rw extends axi4_vseq_base;
     rd_seq.seq_burst= 2'b00;
     rd_seq.check_resp  = 1;
     rd_seq.expect_resp = 2'b00;
+    rd_seq.check_data  = 1;
+    rd_seq.expect_data = 32'h00000084;
     start_read(rd_seq);
 
     `uvm_info("SEQ_REG_DELAY_CFG_RW", "Sequence #10 completed", UVM_LOW)

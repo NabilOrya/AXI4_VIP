@@ -23,6 +23,8 @@ class seq_legal_incr_burst_read extends uvm_sequence #(axi4_read_txn);
     rd_seq.seq_len  = 8'h07; // 8 beats
     rd_seq.seq_size = 3'b010; // 4 bytes/beat
     rd_seq.seq_burst= 2'b01; // INCR burst
+    rd_seq.check_resp  = 1;
+    rd_seq.expect_resp = 2'b00;
     rd_seq.start(m_sequencer);
 
     `uvm_info("SEQ_LEGAL_INCR_READ", "Sequence #27 completed", UVM_LOW)

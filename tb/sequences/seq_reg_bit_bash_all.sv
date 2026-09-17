@@ -31,14 +31,19 @@ class seq_reg_bit_bash_all extends axi4_vseq_base;
         wr_seq.override_data= 1;
         wr_seq.seq_data     = new[1];
         wr_seq.seq_data[0]  = test_patterns[p];
+        wr_seq.check_resp   = 1;
+        wr_seq.expect_resp  = RESP_OKAY;
         start_write(wr_seq);
 
         rd_seq = axi4_read_base_seq::type_id::create("rd_seq");
-        rd_seq.seq_id   = 4'h1;
-        rd_seq.seq_addr = target_regs[r];
-        rd_seq.seq_len  = 8'h00;
-        rd_seq.seq_size = 3'b010;
-        rd_seq.seq_burst= 2'b00;
+        rd_seq.seq_id      = 4'h1;
+        rd_seq.seq_addr    = target_regs[r];
+        rd_seq.seq_len     = 8'h00;
+        rd_seq.seq_size    = 3'b010;
+        rd_seq.seq_burst   = 2'b00;
+        rd_seq.check_resp  = 1;
+        rd_seq.expect_resp = RESP_OKAY;
+        // Masked RDATA (CTRL/INT_EN store [2:0], DELAY [7:0]) checked by ref/SB
         start_read(rd_seq);
       end
     end
