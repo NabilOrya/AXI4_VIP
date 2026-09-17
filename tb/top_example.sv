@@ -6,9 +6,8 @@ module top_example;
   `include "uvm_macros.svh"
   import axi4_env_pkg::*;
 
-  // Clock and Reset Signals
+  // Clock
   logic aclk;
-  logic aresetn;
 
   // Clock Generation (100 MHz -> 10ns period)
   initial begin
@@ -16,18 +15,16 @@ module top_example;
     forever #5 aclk = ~aclk;
   end
 
-  // Reset Generation
-  initial begin
-    aresetn = 0;
-    #20;
-    aresetn = 1;
-  end
-
-  // Interface Instantiation 
+  // Interface Instantiation
+  // ARESETn lives on the interface so sequences can re-assert mid-test (F34).
   axi4_if intf (aclk);
 
-  // Connect active-low reset to interface signal
-  assign intf.ARESETn = aresetn;
+  // Power-on reset; later pulses come from TB via vif.ARESETn
+  initial begin
+    intf.ARESETn = 1'b0;
+    #20;
+    intf.ARESETn = 1'b1;
+  end
 
   // DUT Instantiation
   axi4_peripheral #(

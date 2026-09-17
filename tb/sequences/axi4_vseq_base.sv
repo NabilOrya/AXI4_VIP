@@ -71,4 +71,15 @@ class axi4_vseq_base extends uvm_sequence #(uvm_sequence_item);
     end
   endtask
 
+  // Pulse ARESETn for mid-transaction / directed reset tests (F34)
+  virtual task pulse_reset(int unsigned hold_cycles = 5);
+    if (vif == null)
+      `uvm_fatal(get_type_name(), "vif is null — cannot pulse ARESETn")
+    @(posedge vif.ACLK);
+    vif.ARESETn <= 1'b0;
+    repeat (hold_cycles) @(posedge vif.ACLK);
+    vif.ARESETn <= 1'b1;
+    repeat (2) @(posedge vif.ACLK);
+  endtask
+
 endclass

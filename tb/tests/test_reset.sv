@@ -28,7 +28,7 @@ class test_reset extends axi4_test_base;
     settle();
 
     s3 = seq_reset_midtxn::type_id::create("s3");
-    run_wr(s3);
+    run_vseq(s3); // needs write+read sequencers + vif for ARESETn
     settle();
 
     phase.drop_objection(this);

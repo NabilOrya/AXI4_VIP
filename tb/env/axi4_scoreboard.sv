@@ -5,6 +5,8 @@ import uvm_pkg::*;
 class axi4_scoreboard extends uvm_scoreboard;
   `uvm_component_utils(axi4_scoreboard)
 
+  virtual axi4_if vif;
+
   // Actuals from monitors
   uvm_analysis_imp_write #(axi4_write_txn, axi4_scoreboard) write_export;
   uvm_analysis_imp_read  #(axi4_read_txn,  axi4_scoreboard) read_export;
@@ -30,7 +32,30 @@ class axi4_scoreboard extends uvm_scoreboard;
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
+    if (!uvm_config_db#(virtual axi4_if)::get(this, "", "vif", vif))
+      void'(uvm_config_db#(virtual axi4_if)::get(null, "*", "vif", vif));
     `uvm_info("SCOREBOARD", "build_phase executed", UVM_LOW)
+  endfunction
+
+  // Drop in-flight compare queues on reset — aborted bursts must not pair later
+  task run_phase(uvm_phase phase);
+    if (vif == null) begin
+      `uvm_warning("SCOREBOARD", "vif not set — cannot flush on mid-sim reset")
+      return;
+    end
+    forever begin
+      wait (vif.ARESETn !== 1'b1);
+      flush_queues();
+      `uvm_info("SCOREBOARD", "ARESETn asserted — compare queues flushed", UVM_MEDIUM)
+      wait (vif.ARESETn === 1'b1);
+    end
+  endtask
+
+  function void flush_queues();
+    exp_wr_q.delete();
+    act_wr_q.delete();
+    exp_rd_q.delete();
+    act_rd_q.delete();
   endfunction
 
   // ---- Actual write ----
